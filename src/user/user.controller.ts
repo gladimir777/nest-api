@@ -5,6 +5,7 @@ import {
   Delete,
   Res,
   Req,
+  Request,
   HttpStatus,
   Post,
   Query,
@@ -53,6 +54,12 @@ export class UserController {
     res.status(HttpStatus.OK).json({
       access_token,
     });
+  }
+
+  @UseGuards(AuthGuard())
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 
   @Get('user/:userID')

@@ -16,8 +16,8 @@ export class UserService {
   }
 
   //add user
-  async addUser(createCustomerDTO: UserDTO): Promise<User> {
-    const newUser = await this.userModel(createCustomerDTO);
+  async addUser(createUserDTO: UserDTO): Promise<User> {
+    const newUser = await this.userModel(createUserDTO);
     return newUser.save();
   }
 
@@ -29,9 +29,7 @@ export class UserService {
 
   // Get a single user by email
   async getUserByEmail(userAuth: Auth): Promise<User> {
-    console.log(userAuth);
     const user = await this.userModel.findOne({ email: userAuth.email }).exec();
-    console.log(user);
     return user;
   }
 
