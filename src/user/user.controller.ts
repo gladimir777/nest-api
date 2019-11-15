@@ -49,7 +49,6 @@ export class UserController {
   @Post('/login')
   async login(@Req() req, @Res() res, @Body() authDTO: AuthDTO) {
     const user = await this.authService.validateUser(authDTO);
-    //req.user;
     const access_token = await this.authService.login(user);
     res.status(HttpStatus.OK).json({
       access_token,
@@ -87,11 +86,11 @@ export class UserController {
   // Delete a customer
   @Delete('/user/:userID')
   async deleteUser(@Res() res, @Param('userID') userID) {
-    const customer = await this.userService.deleteUser(userID);
-    if (!customer) throw new NotFoundException('Customer does not exist');
+    const user = await this.userService.deleteUser(userID);
+    if (!user) throw new NotFoundException('Customer does not exist');
     return res.status(HttpStatus.OK).json({
       message: 'User has been deleted',
-      customer,
+      user,
     });
   }
 }

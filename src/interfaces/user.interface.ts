@@ -6,5 +6,6 @@ export interface User extends Document {
   email: string;
   password: string;
   avatar: string;
+  comparePassword(plaintext: string, callback: any): any;
   date: Date;
 }

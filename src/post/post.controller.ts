@@ -7,6 +7,10 @@ import {
   Body,
   HttpStatus,
   UseGuards,
+  Param,
+  Delete,
+  NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PostService } from './post.service';
@@ -32,5 +36,32 @@ export class PostController {
       message: 'Post has been created successfully',
       post,
     });
+  }
+
+  @UseGuards(AuthGuard())
+  @Delete('/post/:postId')
+  async deletePost(@Res() res, @Param('postId') postId) {
+    const deletedPost = this.postService.deletePost(postId);
+    if (!deletedPost) throw new NotFoundException('Post does not exist');
+
+    res
+      .status(HttpStatus.OK)
+      .json({ message: 'Post has been deleted', deletedPost });
+  }
+
+  @UseGuards(AuthGuard())
+  @Put('post/:postId')
+  async updatePost(
+    @Res() res,
+    @Param('postId') postId,
+    @Body() postDTO: PostDTO,
+  ) {
+    const updatedPost = await this.postService.updatePost(postId, postDTO);
+
+    if (!updatedPost) throw new NotFoundException('Post does not exist');
+
+    res
+      .status(HttpStatus.OK)
+      .json({ message: 'Post has been update', updatedPost });
   }
 }

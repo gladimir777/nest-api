@@ -28,7 +28,7 @@ export class UserService {
   }
 
   // Get a single user by email
-  async getUserByEmail(userAuth: Auth): Promise<User> {
+  async getUserByEmail(userAuth: Auth): Promise<any> {
     const user = await this.userModel.findOne({ email: userAuth.email }).exec();
     return user;
   }

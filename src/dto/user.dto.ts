@@ -1,7 +1,7 @@
 export class UserDTO {
-  readonly name: string;
-  readonly email: string;
-  readonly password: string;
-  readonly avatar: string;
-  readonly date: Date;
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+  date: Date;
 }

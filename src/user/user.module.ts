@@ -17,6 +17,6 @@ import { AuthService } from '../auth/auth.service';
   ],
   controllers: [UserController],
   providers: [UserService, AuthService],
-  exports: [UserService],
+  exports: [UserService, MongooseModule],
 })
 export class UserModule {}

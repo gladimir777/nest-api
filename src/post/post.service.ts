@@ -14,10 +14,26 @@ export class PostService {
     return posts;
   }
 
-  //add user
+  //add post
   async addPost(userId: string, createPostDTO: PostDTO): Promise<Post> {
     createPostDTO.user = userId;
     const newPost = await this.postModel(createPostDTO);
     return newPost.save();
+  }
+
+  // delete post
+  async deletePost(postId: string): Promise<any> {
+    const deletedPost = await this.postModel.findByIdAndRemove(postId);
+    return deletedPost;
+  }
+
+  // update post
+  async updatePost(postId: string, updatePostDTO: PostDTO): Promise<Post> {
+    const updateddPost = await this.postModel.findByIdAndUpdate(
+      postId,
+      updatePostDTO,
+      { new: true },
+    );
+    return updateddPost;
   }
 }
