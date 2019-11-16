@@ -57,8 +57,8 @@ export class UserController {
 
   @UseGuards(AuthGuard())
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  getProfile(@Request() req, @Res() res) {
+    res.status(HttpStatus.OK).json(req.user);
   }
 
   @Get('user/:userID')

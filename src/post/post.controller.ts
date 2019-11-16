@@ -64,4 +64,19 @@ export class PostController {
       .status(HttpStatus.OK)
       .json({ message: 'Post has been update', updatedPost });
   }
+
+  @UseGuards(AuthGuard())
+  @Put('post/:postId/coment')
+  async addComent(
+    @Param('postId') postId,
+    @Body() postDTO: PostDTO,
+    @Res() res,
+    @Request() req,
+  ) {
+    const post = await this.postService.addComent(req.user, postId, postDTO);
+
+    if (!post) throw new NotFoundException('Post does not exist');
+
+    res.status(HttpStatus.OK).json(post);
+  }
 }

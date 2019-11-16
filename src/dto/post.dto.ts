@@ -14,14 +14,14 @@ export class PostDTO {
   name: string;
   avatar: string;
   likes?: [User['id']];
-  coments?: [Coment];
+  coments?: [ComentDTO];
   date: Date;
 }
 
-export interface Coment extends Document {
+export class ComentDTO {
   user: User['id'];
   text: string;
-  name: string;
+  name?: string;
   avatar?: string;
   likes?: [User['id']];
   date: Date;
